@@ -6,6 +6,8 @@ const Embed = require("./utils/EmbedBuilder");
 const fetch = require("node-fetch")
 client.on("ready", async () => {
     if (process.env["SESSION_TOKEN"] === "undefined") console.log(client.session)
+    console.log(`READY as ${client.user.username}`)
+    if (process.env["BRAINZ_USER"] === "undefined") return;
     await getBrainz().then(res => {
         console.log(res)
     })
@@ -22,24 +24,24 @@ client.on("message", async (msg)=>{
     	const commandName = args.shift().toLowerCase();
     	if (!commandName) return;
 	if (commandName == "shrug"){
-	if (msg.author_id == process.env['USER_ID']){
+	if (msg.author_id == client.user._id){
 		msg.edit({content: args.join(' ')+` ┐(￣ヘ￣)┌`})
 	}}
 	if (commandName == "me"){
-	if (msg.author_id == process.env['USER_ID']){
+	if (msg.author_id == client.user._id){
 		msg.edit({content:`_${args.join(' ')}_`})
 	}}
 	if (commandName == "flip"){
-	if (msg.author_id == process.env['USER_ID']){
+	if (msg.author_id == client.user._id){
 		msg.edit({content: args?.join(' ')+" (╯°□°)╯︵ ┻━┻"})
 	}}
 	if (commandName == "unflip"){
-	if (msg.author_id == process.env['USER_ID']){
+	if (msg.author_id == client.user._id){
 		msg.edit({content: args?.join(' ')+" ┬─┬ノ( º _ ºノ)"})
 	}}
 	if (commandName == "tenor"){
 	if (!args[0]) return;
-	if (msg.author_id == process.env['USER_ID']){
+	if (msg.author_id == client.user._id){
 		let url = `https://g.tenor.com/v1/search?q=${args.join("%20")}&key=${process.env['TENOR_KEY']}&limit=4`;
 		console.log("a")
 		let responce = await fetch(url);
