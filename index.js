@@ -24,7 +24,7 @@ client.on("message", async (msg)=>{
 	if (commandName == "tenor"){
 	if (!args[0]) return;
 	if (msg.author_id == process.env['USER_ID']){
-		let url = `https://g.tenor.com/v1/search?q=${args.join("%20")}&key=${process.env['TENOR_KEY's]}&limit=4`;
+		let url = `https://g.tenor.com/v1/search?q=${args.join("%20")}&key=${process.env['TENOR_KEY']}&limit=4`;
 		console.log("a")
 		let responce = await fetch(url);
 		console.log("a")
