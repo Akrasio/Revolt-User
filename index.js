@@ -23,6 +23,19 @@ client.on("message", async (msg)=>{
 	const args = msg.content.slice(process.env['PREFIX'].length).trim().split(/ +/);
     	const commandName = args.shift().toLowerCase();
     	if (!commandName) return;
+
+	if (commandName == "wave"){
+	if (msg.author_id == client.user._id){
+		msg.edit({content: args.join(' ')+` ( ^_^)／`})
+	}}
+	if (commandName == "hug"){
+	if (msg.author_id == client.user._id){
+		msg.edit({content: args.join(' ')+` (⊃･ᴥ･)つ`})
+	}}
+	if (commandName == "lenny"){
+	if (msg.author_id == client.user._id){
+		msg.edit({content: args.join(' ')+` ( ͡° ͜ʖ ͡°)`})
+	}}
 	if (commandName == "shrug"){
 	if (msg.author_id == client.user._id){
 		msg.edit({content: args.join(' ')+` ┐(￣ヘ￣)┌`})

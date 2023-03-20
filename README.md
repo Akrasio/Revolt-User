@@ -7,7 +7,9 @@
 - flip
 - unflip
 - shrug
-
+- wave
+- hug
+- lenny
 ### Features:
 - ListenBrainz Song Status (60s | 60000ms)
 - Embed-Builder
