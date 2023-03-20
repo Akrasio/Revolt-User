@@ -17,10 +17,26 @@ client.on("ready", async () => {
 });
 client.on("message", async (msg)=>{
 	if (msg.author.bot || msg.system || !msg.content) return;
-	if (!msg.content.startsWith("-")) return;
-	const args = msg.content.slice("-".length).trim().split(/ +/);
+	if (!msg.content.startsWith(process.env['PREFIX'])) return;
+	const args = msg.content.slice(process.env['PREFIX'].length).trim().split(/ +/);
     	const commandName = args.shift().toLowerCase();
     	if (!commandName) return;
+	if (commandName == "shrug"){
+	if (msg.author_id == process.env['USER_ID']){
+		msg.edit({content: args.join(' ')+` ┐(￣ヘ￣)┌`})
+	}}
+	if (commandName == "me"){
+	if (msg.author_id == process.env['USER_ID']){
+		msg.edit({content:`_${args.join(' ')}_`})
+	}}
+	if (commandName == "flip"){
+	if (msg.author_id == process.env['USER_ID']){
+		msg.edit({content: args?.join(' ')+" (╯°□°)╯︵ ┻━┻"})
+	}}
+	if (commandName == "unflip"){
+	if (msg.author_id == process.env['USER_ID']){
+		msg.edit({content: args?.join(' ')+" ┬─┬ノ( º _ ºノ)"})
+	}}
 	if (commandName == "tenor"){
 	if (!args[0]) return;
 	if (msg.author_id == process.env['USER_ID']){
@@ -31,7 +47,7 @@ client.on("message", async (msg)=>{
 		let json =   await responce.json();
 		const index = Math.floor(Math.random()* json.results.length);
 		console.log(json.results[index].itemurl)
-		if (!index || !json.results || !json.results[index].itemurl) return;
+		if (!index || !json.results || !json.results[index].itemurl) return msg.delete();
 		console.log("a")
 		msg.edit({content: `[ ](${json.results[index].itemurl})`});
 		console.log("a")
