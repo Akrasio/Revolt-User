@@ -14,6 +14,19 @@ async function setStatus(text, presence) {
         }
     );
 };
+async function setBio(content) {
+    await axios.patch(
+        `https://api.revolt.chat/users/@me`,
+        {
+            profile: { content }
+        },
+        {
+            headers: {
+                'x-session-token': process.env['SESSION_TOKEN']
+            }
+        }
+    );
+};
 async function getBrainz() {
     return axios.get(
         brainz_url
@@ -26,5 +39,6 @@ async function getBrainz() {
 };
 module.exports = {
     getBrainz: getBrainz,
+    setBio: setBio,
     setStatus: setStatus
 }
