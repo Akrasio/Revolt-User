@@ -1,9 +1,10 @@
 const Revolt = require("revolt.js");
 const client = new Revolt.Client();
 require("dotenv").config();
-const { getBrainz, setStatus, setBio } = require("./utils/functions");
+const { getBrainz, setStatus, spotify, setBio } = require("./utils/functions");
 const Embed = require("./utils/EmbedBuilder");
 const fetch = require("node-fetch")
+const randomstring = require("randomstring")
 client.on("ready", async () => {
     if (process.env["SESSION_TOKEN"] === "undefined") console.log(client.session)
     console.log(`READY as ${client.user.username}`)
@@ -12,6 +13,8 @@ client.on("ready", async () => {
     setInterval(async () => {
         await getBrainz();
     }, 60000)
+   let s = await spotify();
+	console.log(s)
 });
 client.on("message", async (msg)=>{
 	if (msg.author.bot || msg.system || !msg.content) return;
@@ -53,6 +56,11 @@ client.on("message", async (msg)=>{
 	if (msg.author_id == client.user._id){
 		msg.edit({content: args?.join(' ')+" ┬─┬ノ( º _ ºノ)"})
 	}}
+	if (commandName == "turbo"){
+	if (msg.author_id !== client.user._id)return;
+	const random = randomstring.generate({length: 20,charset: 'alphabetic'}).toUpperCase();
+	return msg.edit({content:`${args.join(" ")}\n[https://revolt.chat/gift/${random}](https://jan.revolt.chat/proxy?url=https%3A%2F%2Fautumn.revolt.chat%2Fattachments%2FvPFf2D-O9M4bOrYEs0lGURLyu3RM8xTJz37H2h8t8q%2FNRevolt%2520turbo.png)`})
+	}
 	if (commandName == "tenor"){
 	if (!args[0]) return;
 	if (msg.author_id == client.user._id){
