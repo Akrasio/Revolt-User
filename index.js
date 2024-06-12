@@ -6,9 +6,9 @@ const Embed = require("./utils/EmbedBuilder");
 const fetch = require("node-fetch")
 const randomstring = require("randomstring")
 client.on("ready", async () => {
-    if (process.env["SESSION_TOKEN"] === "undefined") console.log(client.session)
+    if (typeof(process.env["SESSION_TOKEN"]) === "undefined") console.log(client.session)
     console.log(`READY as ${client.user.username}`)
-    if (process.env["BRAINZ_USER"] === "undefined") return;
+    if (typeof(process.env["BRAINZ_USER"]) === "undefined") return;
     await getBrainz();
     setInterval(async () => {
         await getBrainz();
@@ -79,8 +79,9 @@ client.on("message", async (msg)=>{
 	}
 })
 
-if (process.env["SESSION_TOKEN"] === "undefined") {
-    return client.login({ email: process.env["EMAIL"], password: process.env["PASSWORD"] })
+if (typeof(process.env["SESSION_TOKEN"]) === "undefined") {
+	if (typeof(process.env["EMAIL"]) == "undefined" || typeof(process.env["PASSWORD"]) == "undefined") return console.log("Please provide a SESSION_TOKEN or (EMAIL and PASSWORD [for Non 2FA accounts]) in a file named `.env`");
+    	return client.login({ email: process.env["EMAIL"], password: process.env["PASSWORD"] })
 } else {
-    if (process.env["SESSION_TOKEN"]) return client.useExistingSession({ "token": process.env.SESSION_TOKEN })
+    if (typeof(process.env["SESSION_TOKEN"]) !== "undefined") return client.useExistingSession({ "token": process.env.SESSION_TOKEN })
 }
